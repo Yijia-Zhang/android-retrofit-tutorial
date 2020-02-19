@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     static final String TAG = MainActivity.class.getSimpleName();
     static final String BASE_URL = "https://api.themoviedb.org/3/";
     static Retrofit retrofit = null;
-    final static String API_KEY = "YOUR_API_KEY";
+    final static String API_KEY = "88183861453310755c7873ac8ec4089f";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,19 +54,23 @@ public class MainActivity extends AppCompatActivity {
                     .build();
         }
         MovieApiService movieApiService = retrofit.create(MovieApiService.class);
-        Call<Movie> call = movieApiService.getMovie(603, API_KEY);
+        Call<Movie> call = movieApiService.getMovie(602, API_KEY);
+
         call.enqueue(new Callback<Movie>() {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
                 int[] ids = {R.id.txtTitle, R.id.txtReleaseDate, R.id.txtPoster,
                         R.id.txtVote, R.id.txtOverview};
+
                 String[] values = {
+
                         response.body().getTitle(),
                         response.body().getReleaseDate(),
                         response.body().getPosterPath(),
                         response.body().getVoteAverage().toString(),
                         response.body().getOverview()
                 };
+
                 TextView tv;
                 for (int i=0; i < ids.length; i++) {
                     tv = findViewById(ids[i]);
